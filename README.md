@@ -9,13 +9,15 @@ To run Allegro YACE, type the following command in a terminal\\command line (ins
 `yace [<game>] [<configuration-file>]`
 
 `[<game>]` - The Chip8 game to run. **(Optional)**  
-`[configuration-file]` - The configuration file to use. **(Optional)**
+`[<configuration-file>]` - The configuration file to use. **(Optional)**
 
 The easiest way to run Allegro YACE is simply by typing `yace` or double-clicking the executable.
 
 ###Keys
 `ESCAPE - Exit Allegro YACE`  
-`F1 - Load game`
+`F1 - Load game`  
+`F2 - Toggle timer on/off`  
+`F3 - Step emulation (Only if the timer is stopped)`
 
 ###Configurations
 In the configuration file it's possible to change key-bindings (and soon BG-/FG-color). It's possible to have several configuration files, however, only one can be used at a time.
