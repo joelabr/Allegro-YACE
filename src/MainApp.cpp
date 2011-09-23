@@ -91,19 +91,44 @@ void MainApp::handle_key_presses(ALLEGRO_EVENT& event)
         running = false;
         break;
       case ALLEGRO_KEY_F1:
-        if (game_loaded)
         {
-          game_loaded = false;
-          chip8.reset();
-        }
-        const char* filename = open_file();
+          if (game_loaded)
+          {
+            game_loaded = false;
+            chip8.reset();
+          }
+          const char* filename = open_file();
 
-        if (strcmp(filename, "") != 0)
-        {
-          chip8.load_game(filename);
-          game_loaded = true;
+          if (strcmp(filename, "") != 0)
+          {
+            chip8.load_game(filename);
+            game_loaded = true;
+
+            delete filename;
+          }
         }
-        delete filename;
+        break;
+      case ALLEGRO_KEY_F2:
+        if (al_get_timer_started(timer))
+        {
+          print_debug("Stop timer\n");
+          al_stop_timer(timer);
+        }
+        else
+        {
+          print_debug("Start timer\n");
+          al_start_timer(timer);
+        }
+        break;
+      case ALLEGRO_KEY_F3:
+        if (!al_get_timer_started(timer))
+        {
+          if (game_loaded)
+          {
+            loop();
+            render();
+          }
+        }
         break;
     }
   }
