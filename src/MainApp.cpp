@@ -66,13 +66,18 @@ void MainApp::update_buffer_bitmap()
   const char* video = chip8.get_video();
 
   int x, y;
-  for (int i = 0; i < 0x800; i++)
+  int width = 64 << chip8.get_video_mode();
+  int height = 32 << chip8.get_video_mode();
+  int video_length = width * height;
+  int pixel_size = 10 >> chip8.get_video_mode();
+
+  for (int i = 0; i < video_length; i++)
   {
-    x = i % 64;
-    y = i / 64;
+    x = (i % width) * pixel_size;
+    y = (i / width) * pixel_size;
 
     if (video[i])
-      al_draw_filled_rectangle(x * 10, y * 10, x * 10 + 10, y * 10 + 10, color_black);
+      al_draw_filled_rectangle(x, y, x + pixel_size, y + pixel_size, color_black);
   }
 
   // Reset target to backbuffer
@@ -181,7 +186,7 @@ void MainApp::init_allegro()
     exit(-1);
   }
 
-  timer = al_create_timer(1.0 / 60.0);
+  timer = al_create_timer(1.0 / 30.0);
   if (!timer)
   {
     fprintf(stderr, "Failed to create timer!\n");

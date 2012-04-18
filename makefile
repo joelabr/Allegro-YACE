@@ -4,9 +4,9 @@ LIBS	:=-lallegro-5.0.4-mt -lallegro_dialog-5.0.4-mt -lallegro_primitives-5.0.4-m
 
 .PHONY:	all
 all:
-	$(CXX) -o yace YACE/src/Chip8.cpp YACE/src/CPU.cpp src/MainApp.cpp src/main.cpp -s $(CFLAGS) $(LIBS)
+	$(CXX) -o allegro-yace YACE/src/Chip8.cpp YACE/src/CPU.cpp src/MainApp.cpp src/main.cpp -s $(CFLAGS) $(LIBS)
 
 .PHONY: debug
 debug:
-	$(CXX) -o yace-debug YACE/src/Chip8.cpp YACE/src/CPU.cpp src/MainApp.cpp src/main.cpp -D _DEBUG_ -g $(CFLAGS) $(LIBS)
+	$(CXX) -o allegro-yace-debug YACE/src/Chip8.cpp YACE/src/CPU.cpp src/MainApp.cpp src/main.cpp -D _DEBUG_ -g $(CFLAGS) $(LIBS)
 

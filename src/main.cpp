@@ -14,16 +14,18 @@ int main(int argc, char** argv)
     else
     {
       std::string program_directory = argv[0];
-      program_directory = program_directory.substr(0, program_directory.rfind("\\"));
-      app->read_config(program_directory + "\\config.ini");
+      program_directory = program_directory.substr(0, program_directory.rfind("\\"))
+                                           .substr(0, program_directory.rfind("/"));
+      app->read_config(program_directory + "/config.ini");
     }
   }
   else
   {
     app = new MainApp();
     std::string program_directory = argv[0];
-    program_directory = program_directory.substr(0, program_directory.rfind("\\"));
-    app->read_config(program_directory + "\\config.ini");
+    program_directory = program_directory.substr(0, program_directory.rfind("\\"))
+                                         .substr(0, program_directory.rfind("/"));
+    app->read_config(program_directory + "/config.ini");
   }
 
   if (!app)
