@@ -23,7 +23,7 @@ The easiest way to run Allegro YACE is simply by typing `yace` or double-clickin
 In the configuration file it's possible to change key-bindings (and soon BG-/FG-color). It's possible to have several configuration files, however, only one can be used at a time.
 
 The default configuration has the following key layout:
-Chip8 || Mapping
+<p><img src="http://i41.tinypic.com/2dlj0d1.png" alt="Key layout" /></p>
 
 Compiling
 ---------
@@ -31,15 +31,19 @@ Compiling
 * [YACE Back end](https://github.com/Johoel/YACE)
 * Allegro 5.0.4 (or greater)
 
-**The file hierarchy should look something like this with the YACE back end in place.**
-*Allegro YACE/*
-*|*
-*-include/*
-*-src/*
-*-YACE/*
-*-|*
-*--include/*
-*--src/*
+**The file hierarchy should look something like this with the YACE back end in place.**  
+<ul>
+<li>Allegro YACE/</li> 
+<ul><li>include/</li></ul>
+<ul><li>src/</li></ul>  
+<ul>
+<li>YACE/</li>
+<ul>
+<li>include/</li>  
+<li>src/</li>
+</ul>
+</ul>
+</ul>
 
 ###Compiling
 There's a *makefile* provided with Allegro YACE. It's very basic and doesn't allow for adding new source files without having to add them manually into the makefile. Follow these steps to compile Allegro YACE:
@@ -64,5 +68,6 @@ Example 1 - Compiling **without** debugging:
 
 To-Do list
 ----------
++ Improve event handling (like keyboard input)
 + Add sound support
 + Add possibility to set user-defined colors in configuration file (default is White BG & Black FG).
