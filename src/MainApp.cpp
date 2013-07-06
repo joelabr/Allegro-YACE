@@ -95,6 +95,7 @@ void MainApp::handle_key_presses(ALLEGRO_EVENT& event)
       case ALLEGRO_KEY_ESCAPE:
         running = false;
         break;
+      // Load game
       case ALLEGRO_KEY_F1:
         {
           if (game_loaded)
@@ -113,6 +114,7 @@ void MainApp::handle_key_presses(ALLEGRO_EVENT& event)
           }
         }
         break;
+      // Start/Stop timer
       case ALLEGRO_KEY_F2:
         if (al_get_timer_started(timer))
         {
@@ -125,6 +127,7 @@ void MainApp::handle_key_presses(ALLEGRO_EVENT& event)
           al_start_timer(timer);
         }
         break;
+      // Step one instruction
       case ALLEGRO_KEY_F3:
         if (!al_get_timer_started(timer))
         {
@@ -135,6 +138,28 @@ void MainApp::handle_key_presses(ALLEGRO_EVENT& event)
           }
         }
         break;
+      // Decrease cycles
+      case ALLEGRO_KEY_F4:
+        if (al_get_timer_started(timer) && game_loaded)
+        {
+          int cycles = chip8.get_cpu_cycles();
+          if ((cycles - 5) >= 5)
+            chip8.set_cpu_cycles(cycles - 5);
+          else
+            chip8.set_cpu_cycles(5);
+        }
+      break;
+      // Increase cycles
+      case ALLEGRO_KEY_F5:
+        if (al_get_timer_started(timer) && game_loaded)
+        {
+          int cycles = chip8.get_cpu_cycles();
+          if ((cycles + 5) <= 100)
+            chip8.set_cpu_cycles(cycles + 5);
+          else if (cycles != 100)
+            chip8.set_cpu_cycles(100);
+        }
+      break;
     }
   }
 }
@@ -235,26 +260,27 @@ const char* MainApp::open_file()
 void MainApp::process_events()
 {
   ALLEGRO_EVENT event;
-  al_wait_for_event(event_queue, &event);
-
-  switch (event.type)
+  if (al_get_next_event(event_queue, &event))
   {
-    case ALLEGRO_EVENT_DISPLAY_CLOSE:
-      running = false;
-      break;
-    case ALLEGRO_EVENT_KEY_DOWN:
-      handle_key_presses(event);
-      break;
-    case ALLEGRO_EVENT_KEY_UP:
-      handle_key_releases(event);
-      break;
-    case ALLEGRO_EVENT_TIMER:
-      if (game_loaded)
-      {
-        loop();
-        render();
-      }
-      break;
+    switch (event.type)
+    {
+      case ALLEGRO_EVENT_DISPLAY_CLOSE:
+        running = false;
+        break;
+      case ALLEGRO_EVENT_KEY_DOWN:
+        handle_key_presses(event);
+        break;
+      case ALLEGRO_EVENT_KEY_UP:
+        handle_key_releases(event);
+        break;
+      case ALLEGRO_EVENT_TIMER:
+        if (game_loaded)
+        {
+          loop();
+          render();
+        }
+        break;
+    }
   }
 }
 
